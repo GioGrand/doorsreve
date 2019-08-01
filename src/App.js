@@ -1,5 +1,4 @@
 import React from "react";
-import "semantic-ui-css/semantic.min.css";
 import "./App.css";
 import ApolloClient from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
@@ -8,14 +7,14 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import { ApolloLink } from "apollo-link";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import MenuBar from "./components/MenuBar";
-import { Container } from "semantic-ui-react";
 import { AuthProvider } from "./context/auth";
 import AuthRoute from "./utils/AuthRoute";
 import { setContext } from "apollo-link-context";
 import SinglePost from "./pages/SinglePost";
+import HomePage from "./app/features/frontPages/Homepage/Homepage";
+import MenuContainer from "./app/features/navigation/MenuContainer";
+import LoginForm from './app/features/auth/Login';
+import RegisterForm from "./app/features/auth/Register";
 
 const httpLink = createHttpLink({
   uri: "http://test1-env.ycmt5na4vv.eu-west-2.elasticbeanstalk.com/"
@@ -44,13 +43,12 @@ function App() {
     <ApolloProvider client={client}>
       <AuthProvider>
         <Router>
-          <Container>
-            <MenuBar />
-            <Route exact path='/' component={Home} />
-            <AuthRoute exact path='/login' component={Login} />
-            <AuthRoute exact path='/register' component={Register} />
-            <Route exact path='/posts/:postId' component={SinglePost} />
-          </Container>
+          <MenuContainer />
+          <Route exact path='/' component={HomePage} />
+          <Route exact path='/vecchio' component={Home} />
+          <AuthRoute exact path='/login' component={LoginForm} />
+          <AuthRoute exact path='/register' component={RegisterForm} />
+          <Route exact path='/posts/:postId' component={SinglePost} />
         </Router>
       </AuthProvider>
     </ApolloProvider>

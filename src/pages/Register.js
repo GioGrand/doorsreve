@@ -5,6 +5,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { useForm } from "../utils/hooks";
 
 import { AuthContext } from "./../context/auth";
+import { ReactLoading } from "react-loading";
 
 function Register(props) {
   const context = useContext(AuthContext);
@@ -71,7 +72,11 @@ function Register(props) {
           type='password'
         />
         <Button type='submit' primary>
-          Register
+          {loading ? (
+            <ReactLoading type='spin' color='#ffffff' height={30} width={30} />
+          ) : (
+            "Register"
+          )}
         </Button>
       </Form>
       {Object.keys(errors).length > 0 && (
